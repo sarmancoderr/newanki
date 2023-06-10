@@ -1,8 +1,10 @@
-import {Button, TextField} from "@mui/material";
+import {Button, TextField, Typography} from "@mui/material";
 import { type NextPage } from "next";
 import React, {useEffect, useState} from "react";
 import {api} from "~/utils/api";
 import {signIn, useSession} from "next-auth/react";
+import {Box} from "@mui/system";
+import MalletEditor from "~/components/mallets/MalletEditor";
 
 
 export const Home: NextPage = () => {
@@ -37,19 +39,17 @@ const HomeContent: React.FC = () => {
         return (<p>Loading</p>)
     }
 
-    console.log('renderizando la APPPPPPPPPPPPPP')
-
     return (
         <>
-            <p>Listado de mazos</p>
+            <Box sx={{display: 'flex', justifyContent: 'space-between', padding: '0px 10px'}}>
+                <Typography component={'h2'} variant={'h4'}>Listado de mazos</Typography>
+                <MalletEditor />
+            </Box>
             <ul>
                 {data?.map(mazo => (
                     <li key={mazo.id}>{mazo.name}</li>
                 ))}
             </ul>
-            <form onSubmit={createMallet}>
-                <Button type={'submit'} variant={'contained'}>Crear mazo</Button>
-            </form>
         </>
     )
 }
