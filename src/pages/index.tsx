@@ -1,4 +1,4 @@
-import {Button, TextField, Typography} from "@mui/material";
+import {Button, Card, CardActions, CardContent, Grid, TextField, Typography} from "@mui/material";
 import { type NextPage } from "next";
 import React, {useEffect, useState} from "react";
 import {api} from "~/utils/api";
@@ -45,11 +45,22 @@ const HomeContent: React.FC = () => {
                 <Typography component={'h2'} variant={'h4'}>Listado de mazos</Typography>
                 <MalletEditor />
             </Box>
-            <ul>
-                {data?.map(mazo => (
-                    <li key={mazo.id}>{mazo.name}</li>
-                ))}
-            </ul>
+            <Box sx={{margin: '5px 10px'}}>
+                <Grid container spacing={5}>
+                    {data?.map(mazo => (
+                        <Grid key={mazo.id} item>
+                            <Card>
+                                <CardContent>
+                                    <Typography component={'h3'} variant={'h5'}>{mazo.name}</Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button>Ver mazo</Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
         </>
     )
 }
