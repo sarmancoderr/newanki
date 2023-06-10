@@ -5,19 +5,7 @@ import {api} from "~/utils/api";
 import {signIn, useSession} from "next-auth/react";
 import {Box} from "@mui/system";
 import MalletEditor from "~/components/mallets/MalletEditor";
-
-
-export const Home: NextPage = () => {
-    const {data: session} = useSession()
-
-    if (!session) {
-        return (<Button variant={'contained'} onClick={() => {void signIn()}}>Es necesario iniciar sesión</Button>)
-    }
-
-    return (
-        <HomeContent />
-    )
-}
+import MainLayout, {MainAuthLayout} from "~/components/MainAuthLayout";
 
 const HomeContent: React.FC = () => {
     const utils = api.useContext()
@@ -27,6 +15,8 @@ const HomeContent: React.FC = () => {
             utils.mallets.invalidate()
         }
     })
+
+    console.log('HOME PAGE')
 
     const createMallet: React.FormEventHandler = (e) => {
         e.preventDefault()
@@ -45,7 +35,7 @@ const HomeContent: React.FC = () => {
                 <Typography component={'h2'} variant={'h4'}>Listado de mazos</Typography>
                 <MalletEditor />
             </Box>
-            <Box sx={{margin: '5px 10px'}}>
+            <Box>
                 <Grid container spacing={5}>
                     {data?.map(mazo => (
                         <Grid key={mazo.id} item>
@@ -65,4 +55,4 @@ const HomeContent: React.FC = () => {
     )
 }
 
-export default Home
+export default MainAuthLayout(HomeContent)
